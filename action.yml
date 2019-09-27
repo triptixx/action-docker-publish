@@ -1,0 +1,16 @@
+name: 'docker build'
+author: 'triptixx'
+description: 'A Action CI plugin for tagging and pushing built Docker images'
+inputs:
+  from:
+    description: ''
+    required: true
+  repo:
+    description: 'tag to this repo/repo to push to'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'package'
+  color: 'blue'
