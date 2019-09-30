@@ -42,7 +42,7 @@ echo -n "${PASSWORD}" | \
         --username "${USERNAME}" \
         "${INPUT_REGISTRY}"
 
-echo "${INPUT_TAGS}" | tr ',' '\n' | parse_tags | xargs -n 1 | sort -u | xargs
+echo "${INPUT_TAGS}"
 
 # # Ensure at least one tag exists
 # if [ -z "${PLUGIN_TAGS}" ]; then
