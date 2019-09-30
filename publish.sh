@@ -1,18 +1,17 @@
 #!/bin/sh
-set -e
-set -o pipefail
+set -eo pipefail
 
 source tags.sh
 
-if [ "$1" = "--tags" ]; then
-    >&2 echo -e "Running in --tags test mode"
+if [ "$1" = '--tags' ]; then
+    >&2 echo -e 'Running in --tags test mode'
     shift
-    printf "%s\n" "$@" | parse_tags | xargs -n 1 | sort -u
+    printf '%s\n' "$@" | parse_tags | xargs -n 1 | sort -u
     exit 0
 fi
 
-if echo "$DRONE_COMMIT_MESSAGE" | grep -qiF -e "[PUBLISH SKIP]" -e "[SKIP PUBLISH]"; then
-    >&2 echo -e "Skipping publish"
+if echo "$DRONE_COMMIT_MESSAGE" | grep -qiF -e '[PUBLISH SKIP]' -e '[SKIP PUBLISH]'; then
+    >&2 echo -e 'Skipping publish'
     exit 0
 fi
 
@@ -51,7 +50,7 @@ if [ -z "${PLUGIN_TAGS}" ]; then
         PLUGIN_REPO="${PLUGIN_REPO%:*}"
     else
     # If none specified, assume 'latest'
-        TAGS="latest"
+        TAGS='latest'
     fi
 else
     # Parse and process dynamic tags
@@ -66,7 +65,7 @@ done
 for tag in $TAGS; do
     printf "Pushing tag '%s'...\n" $tag
     docker push "${PLUGIN_REPO}:$tag"
-    printf "\n"
+    printf '\n'
 done
 # Remove all tagged images
 for tag in $TAGS; do
@@ -75,9 +74,9 @@ done
 docker rmi "${SRC_REPO}" >/dev/null 2>/dev/null || true
 
 if [ -n "$MICROBADGER_TOKEN" ]; then
-    >&2 echo "Legacy \$MICROBADGER_TOKEN provided, you can remove this"
+    >&2 echo 'Legacy $MICROBADGER_TOKEN provided, you can remove this'
 fi
 
-printf "%s... " "Updating Microbadger metadata for ${PLUGIN_REPO%:*}"
+printf '%s... ' "Updating Microbadger metadata for ${PLUGIN_REPO%:*}"
 WEBHOOK_URL="$(curl -sS https://api.microbadger.com/v1/images/${PLUGIN_REPO%:*} | jq -r .WebhookURL)" && \
 curl -sS -X POST "$WEBHOOK_URL" || true
