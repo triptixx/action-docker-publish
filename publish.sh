@@ -19,8 +19,8 @@ fi
 # $PLUGIN_REPO  tag to this repo/repo to push to
 # $PLUGIN_TAGS  newline or comma separated list of tags to push images with
 
-USERNAME="${DOCKER_USERNAME:-${INPUT_DOCKER_USERNAME}}"
-PASSWORD="${DOCKER_PASSWORD:-${INPUT_DOCKER_PASSWORD}}"
+USERNAME="${INPUT_DOCKER_USERNAME}"
+PASSWORD="${INPUT_DOCKER_PASSWORD}"
 
 if [ -z "${USERNAME}" ]; then
     error "Missing required docker 'username' for pushing"
