@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eo pipefail
 
-#source tags.sh
+source tags.sh
 
 if [ "$1" = '--tags' ]; then
     >&2 echo -e 'Running in --tags test mode'
