@@ -13,6 +13,8 @@ inputs:
   repo:
     description: 'tag to this repo/repo to push to'
     required: true
+  registry:
+    description: 'docker registry of your account'
 runs:
   using: 'docker'
   image: 'Dockerfile'
