@@ -27,3 +27,6 @@ if [ -z "${USERNAME}" ]; then
 elif [ -z "${PASSWORD}" ]; then
     error "Missing required docker 'username' for pushing"
 fi
+
+# If no PLUGIN_FROM specifed, assume PLUGIN_REPO instead
+export SRC_REPO="${INPUT_FROM:-${INPUT_REPO}}"
