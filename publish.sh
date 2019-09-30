@@ -10,8 +10,6 @@ if [ "$1" = '--tags' ]; then
     exit 0
 fi
 
-echo "$(jq --raw-output .head_commit.message "$GITHUB_EVENT_PATH")"
-
 if echo "$(jq --raw-output .head_commit.message "$GITHUB_EVENT_PATH")" | grep -qiF -e '[PUBLISH SKIP]' -e '[SKIP PUBLISH]'; then
     >&2 echo -e 'Skipping publish'
     exit 0
