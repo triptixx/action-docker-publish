@@ -28,5 +28,16 @@ elif [ -z "${PASSWORD}" ]; then
     error "Missing required docker 'username' for pushing"
 fi
 
+if [ -z "${INPUT_REPO}" ]; then
+    error "Missing 'repo' argument required for publishing"
+fi
+
 # If no PLUGIN_FROM specifed, assume PLUGIN_REPO instead
 export SRC_REPO="${INPUT_FROM:-${INPUT_REPO}}"
+
+# Log in to the specified Docker registry (or the default if not specified)
+echo -n "${PASSWORD}" | \
+    docker login \
+        --password-stdin \
+        --username "${USERNAME}" \
+        "${INPUT_REGISTRY}"
