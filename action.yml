@@ -5,11 +5,9 @@ inputs:
   docker_username:
     description: 'docker registry username'
     required: true
-    default: "${{ secrets.DOCKER_USERNAME }}"
   docker_password:
     description: 'docker registry password'
     required: true
-    default: "${{ secrets.DOCKER_PASSWORD }}"
   from:
     description: 're-tag from this repo'
   repo:
