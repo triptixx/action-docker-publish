@@ -43,6 +43,7 @@ echo -n "${PASSWORD}" | \
         "${INPUT_REGISTRY}"
 
 echo "${INPUT_TAGS}"
+env
 
 # # Ensure at least one tag exists
 # if [ -z "${PLUGIN_TAGS}" ]; then
