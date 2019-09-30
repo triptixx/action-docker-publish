@@ -41,3 +41,44 @@ echo -n "${PASSWORD}" | \
         --password-stdin \
         --username "${USERNAME}" \
         "${INPUT_REGISTRY}"
+
+echo "${INPUT_TAGS}" | tr ',' '\n' | parse_tags | xargs -n 1 | sort -u | xargs
+
+# # Ensure at least one tag exists
+# if [ -z "${PLUGIN_TAGS}" ]; then
+#     # Take into account the case where the repo already has the tag appended
+#     if echo "${PLUGIN_REPO}" | grep -q ':'; then
+#         TAGS="${PLUGIN_REPO#*:}"
+#         PLUGIN_REPO="${PLUGIN_REPO%:*}"
+#     else
+#     # If none specified, assume 'latest'
+#         TAGS='latest'
+#     fi
+# else
+#     # Parse and process dynamic tags
+#     TAGS="$(echo "${PLUGIN_TAGS}" | tr ',' '\n' | parse_tags | xargs -n 1 | sort -u | xargs)"
+# fi
+
+# # Tag all images
+# for tag in $TAGS; do
+#     docker tag "${SRC_REPO}" "${PLUGIN_REPO}:$tag"
+# done
+# # Push all tagged images
+# for tag in $TAGS; do
+#     printf "Pushing tag '%s'...\n" $tag
+#     docker push "${PLUGIN_REPO}:$tag"
+#     printf '\n'
+# done
+# # Remove all tagged images
+# for tag in $TAGS; do
+#     docker rmi "${PLUGIN_REPO}:$tag" >/dev/null 2>/dev/null || true
+# done
+# docker rmi "${SRC_REPO}" >/dev/null 2>/dev/null || true
+
+# if [ -n "$MICROBADGER_TOKEN" ]; then
+#     >&2 echo 'Legacy $MICROBADGER_TOKEN provided, you can remove this'
+# fi
+
+# printf '%s... ' "Updating Microbadger metadata for ${PLUGIN_REPO%:*}"
+# WEBHOOK_URL="$(curl -sS https://api.microbadger.com/v1/images/${PLUGIN_REPO%:*} | jq -r .WebhookURL)" && \
+# curl -sS -X POST "$WEBHOOK_URL" || true
