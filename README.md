@@ -22,5 +22,5 @@ steps:
 - `docker_password`    docker 'password' for pushing. _required_
 - `from`               re-tag from this repo. _optional_
 - `repo`               tag to this repo/repo to push to. _required_
-- `registry`           docker registry of your account. _default: `https://hub.docker.com`_
+- `registry`           docker registry of your account. _default: `docker.io`_
 - `tags`               tag TARGET_IMAGE that refers to SOURCE_IMAGE. _default: `latest`_
