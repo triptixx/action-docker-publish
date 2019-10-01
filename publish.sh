@@ -57,9 +57,17 @@ else
   TAGS="$(echo "${INPUT_TAGS}" | tr ',' '\n' | parse_tags | xargs -n 1 | sort -u | xargs)"
 fi
 
-# Tag all images
 for tag in $TAGS; do
+  # Tag images
   docker tag "${SRC_REPO}" "${INPUT_REPO}:$tag"
+  
+  # Push tagged images
+  printf "Pushing tag '%s'...\n" $tag
+  #docker push "${INPUT_REPO}:$tag"
+  printf '\n'
+  
+  # Remove tagged images
+  docker rmi "${INPUT_REPO}:$tag" >/dev/null 2>/dev/null || true
 done
 # # Push all tagged images
 # for tag in $TAGS; do
@@ -72,8 +80,6 @@ done
 #     docker rmi "${PLUGIN_REPO}:$tag" >/dev/null 2>/dev/null || true
 # done
 # docker rmi "${SRC_REPO}" >/dev/null 2>/dev/null || true
-
-docker images
 
 # if [ -n "$MICROBADGER_TOKEN" ]; then
 #     >&2 echo 'Legacy $MICROBADGER_TOKEN provided, you can remove this'
