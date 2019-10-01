@@ -71,10 +71,10 @@ for tag in $TAGS; do
 done
 docker rmi "${SRC_REPO}" >/dev/null 2>/dev/null || true
 
-# if [ -n "$MICROBADGER_TOKEN" ]; then
-#     >&2 echo 'Legacy $MICROBADGER_TOKEN provided, you can remove this'
-# fi
+if [ -n "$MICROBADGER_TOKEN" ]; then
+  >&2 echo 'Legacy $MICROBADGER_TOKEN provided, you can remove this'
+fi
 
-# printf '%s... ' "Updating Microbadger metadata for ${PLUGIN_REPO%:*}"
-# WEBHOOK_URL="$(curl -sS https://api.microbadger.com/v1/images/${PLUGIN_REPO%:*} | jq -r .WebhookURL)" && \
-# curl -sS -X POST "$WEBHOOK_URL" || true
+printf '%s... ' "Updating Microbadger metadata for ${INPUT_REPO%:*}"
+WEBHOOK_URL="$(curl -sS https://api.microbadger.com/v1/images/${INPUT_REPO%:*} | jq -r .WebhookURL)" && \
+curl -sS -X POST "$WEBHOOK_URL" || true
