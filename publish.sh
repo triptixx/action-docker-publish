@@ -15,9 +15,9 @@ if echo "$(jq --raw-output .head_commit.message "$GITHUB_EVENT_PATH")" | grep -q
   exit 0
 fi
 
-# $PLUGIN_FROM  re-tag from this repo
-# $PLUGIN_REPO  tag to this repo/repo to push to
-# $PLUGIN_TAGS  newline or comma separated list of tags to push images with
+# $INPUT_FROM  re-tag from this repo
+# $INPUT_REPO  tag to this repo/repo to push to
+# $INPUT_TAGS  newline or comma separated list of tags to push images with
 
 USERNAME="${INPUT_DOCKER_USERNAME}"
 PASSWORD="${INPUT_DOCKER_PASSWORD}"
@@ -32,7 +32,7 @@ if [ -z "${INPUT_REPO}" ]; then
   error "Missing 'repo' argument required for publishing"
 fi
 
-# If no PLUGIN_FROM specifed, assume PLUGIN_REPO instead
+# If no INPUT_FROM specifed, assume INPUT_REPO instead
 export SRC_REPO="${INPUT_FROM:-${INPUT_REPO}}"
 
 # Log in to the specified Docker registry (or the default if not specified)
