@@ -4,15 +4,15 @@ set -eo pipefail
 source tags.sh
 
 if [ "$1" = '--tags' ]; then
-    >&2 echo -e 'Running in --tags test mode'
-    shift
-    printf '%s\n' "$@" | parse_tags | xargs -n 1 | sort -u
-    exit 0
+  >&2 echo -e 'Running in --tags test mode'
+  shift
+  printf '%s\n' "$@" | parse_tags | xargs -n 1 | sort -u
+  exit 0
 fi
 
 if echo "$(jq --raw-output .head_commit.message "$GITHUB_EVENT_PATH")" | grep -qiF -e '[PUBLISH SKIP]' -e '[SKIP PUBLISH]'; then
-    >&2 echo -e 'Skipping publish'
-    exit 0
+  >&2 echo -e 'Skipping publish'
+  exit 0
 fi
 
 # $PLUGIN_FROM  re-tag from this repo
@@ -23,13 +23,13 @@ USERNAME="${INPUT_DOCKER_USERNAME}"
 PASSWORD="${INPUT_DOCKER_PASSWORD}"
 
 if [ -z "${USERNAME}" ]; then
-    error "Missing required docker 'username' for pushing"
+  error "Missing required docker 'username' for pushing"
 elif [ -z "${PASSWORD}" ]; then
-    error "Missing required docker 'username' for pushing"
+  error "Missing required docker 'username' for pushing"
 fi
 
 if [ -z "${INPUT_REPO}" ]; then
-    error "Missing 'repo' argument required for publishing"
+  error "Missing 'repo' argument required for publishing"
 fi
 
 # If no PLUGIN_FROM specifed, assume PLUGIN_REPO instead
@@ -42,23 +42,23 @@ echo -n "${PASSWORD}" | \
         --username "${USERNAME}" \
         "${INPUT_REGISTRY}"
 
-echo "${INPUT_TAGS}" | tr ',' '\n' | parse_tags | xargs -n 1 | sort -u | xargs
+# Ensure at least one tag exists
+if [ -z "${INPUT_TAGS}" ]; then
+  # Take into account the case where the repo already has the tag appended
+  if echo "${INPUT_REPO}" | grep -q ':'; then
+    TAGS="${INPUT_REPO#*:}"
+    INPUT_REPO="${INPUT_REPO%:*}"
+  else
+    # If none specified, assume 'latest'
+    TAGS='latest'
+  fi
+else
+  # Parse and process dynamic tags
+  TAGS="$(echo "${INPUT_TAGS}" | tr ',' '\n' | parse_tags | xargs -n 1 | sort -u | xargs)"
+fi
 
-
-# # Ensure at least one tag exists
-# if [ -z "${PLUGIN_TAGS}" ]; then
-#     # Take into account the case where the repo already has the tag appended
-#     if echo "${PLUGIN_REPO}" | grep -q ':'; then
-#         TAGS="${PLUGIN_REPO#*:}"
-#         PLUGIN_REPO="${PLUGIN_REPO%:*}"
-#     else
-#     # If none specified, assume 'latest'
-#         TAGS='latest'
-#     fi
-# else
-#     # Parse and process dynamic tags
-#     TAGS="$(echo "${PLUGIN_TAGS}" | tr ',' '\n' | parse_tags | xargs -n 1 | sort -u | xargs)"
-# fi
+echo "$INPUT_REPO"
+echo "$TAGS"
 
 # # Tag all images
 # for tag in $TAGS; do
