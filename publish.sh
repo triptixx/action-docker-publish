@@ -59,17 +59,17 @@ fi
 
 for tag in $TAGS; do
     # Tag images
-    docker tag "${SRC_REPO}" "${INPUT_REPO}:$tag"
+    docker image tag "${SRC_REPO}" "${INPUT_REPO}:$tag"
     
     # Push tagged images
     printf "Pushing tag '%s'...\n" $tag
-    docker push "${INPUT_REPO}:$tag"
+    docker image push "${INPUT_REPO}:$tag"
     printf '\n'
     
     # Remove tagged images
-    docker rmi "${INPUT_REPO}:$tag" >/dev/null 2>/dev/null || true
+    docker image rm "${INPUT_REPO}:$tag" >/dev/null 2>/dev/null || true
 done
-docker rmi "${SRC_REPO}" >/dev/null 2>/dev/null || true
+docker image rm "${SRC_REPO}" >/dev/null 2>/dev/null || true
 
 printf '%s... ' "Updating Microbadger metadata for ${INPUT_REPO%:*}"
 WEBHOOK_URL="$(curl -sS https://api.microbadger.com/v1/images/${INPUT_REPO%:*} | jq -r .WebhookURL)" && \
