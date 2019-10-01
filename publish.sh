@@ -63,7 +63,7 @@ for tag in $TAGS; do
   
   # Push tagged images
   printf "Pushing tag '%s'...\n" $tag
-  #docker push "${INPUT_REPO}:$tag"
+  docker push "${INPUT_REPO}:$tag"
   printf '\n'
   
   # Remove tagged images
