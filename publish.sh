@@ -57,13 +57,10 @@ else
   TAGS="$(echo "${INPUT_TAGS}" | tr ',' '\n' | parse_tags | xargs -n 1 | sort -u | xargs)"
 fi
 
-echo "$INPUT_REPO"
-echo "$TAGS"
-
-# # Tag all images
-# for tag in $TAGS; do
-#     docker tag "${SRC_REPO}" "${PLUGIN_REPO}:$tag"
-# done
+# Tag all images
+for tag in $TAGS; do
+  docker tag "${SRC_REPO}" "${INPUT_REPO}:$tag"
+done
 # # Push all tagged images
 # for tag in $TAGS; do
 #     printf "Pushing tag '%s'...\n" $tag
