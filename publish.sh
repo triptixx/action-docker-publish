@@ -69,17 +69,7 @@ for tag in $TAGS; do
   # Remove tagged images
   docker rmi "${INPUT_REPO}:$tag" >/dev/null 2>/dev/null || true
 done
-# # Push all tagged images
-# for tag in $TAGS; do
-#     printf "Pushing tag '%s'...\n" $tag
-#     docker push "${PLUGIN_REPO}:$tag"
-#     printf '\n'
-# done
-# # Remove all tagged images
-# for tag in $TAGS; do
-#     docker rmi "${PLUGIN_REPO}:$tag" >/dev/null 2>/dev/null || true
-# done
-# docker rmi "${SRC_REPO}" >/dev/null 2>/dev/null || true
+docker rmi "${SRC_REPO}" >/dev/null 2>/dev/null || true
 
 # if [ -n "$MICROBADGER_TOKEN" ]; then
 #     >&2 echo 'Legacy $MICROBADGER_TOKEN provided, you can remove this'
