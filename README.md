@@ -14,18 +14,13 @@ steps:
       from: image-name-dev
       repo: user/image-name:optional-tag
       tags: docker_tag,over_docker_tag
-    args:
-      - '--tags'
+    args: '--tags'
 ```
 
 ### Available options
-- `repo`          tag to this repo/repo to push to. _required_
-- `path`          override working directory. _default: `.`_
-- `dockerfile`    override Dockerfile location. _default: `Dockerfile`_
-- `use_cache`     override to disable `--no-cache`. _default: `false`_
-- `no_labels`     disable automatic image labelling. _default: `false`_
-- `build_args`    additional build arguments. _optional_
-- `arguments`     optional extra arguments to pass to `docker build`. _optional_
-- `make`          provides MAKEFLAGS=-j$(nproc) as a build-argument. _optional_
-- `rm`            a flag to immediately `docker rm` the built image. _optional_
-- `squash`        squash the built image into one layer. _optional_
+- `docker_username`    docker 'username' for pushing. _required_
+- `docker_password`    docker 'password' for pushing. _required_
+- `from`               re-tag from this repo. _optional_
+- `repo`               tag to this repo/repo to push to. _required_
+- `registry`           docker registry of your account. _default: `https://hub.docker.com`_
+- `tags`               tag TARGET_IMAGE that refers to SOURCE_IMAGE. _default: `latest`_
