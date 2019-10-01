@@ -73,6 +73,8 @@ done
 # done
 # docker rmi "${SRC_REPO}" >/dev/null 2>/dev/null || true
 
+docker images
+
 # if [ -n "$MICROBADGER_TOKEN" ]; then
 #     >&2 echo 'Legacy $MICROBADGER_TOKEN provided, you can remove this'
 # fi
