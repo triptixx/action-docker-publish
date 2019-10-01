@@ -25,7 +25,7 @@ PASSWORD="${INPUT_DOCKER_PASSWORD}"
 if [ -z "${USERNAME}" ]; then
   error "Missing required docker 'username' for pushing"
 elif [ -z "${PASSWORD}" ]; then
-  error "Missing required docker 'username' for pushing"
+  error "Missing required docker 'password' for pushing"
 fi
 
 if [ -z "${INPUT_REPO}" ]; then
