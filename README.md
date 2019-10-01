@@ -9,11 +9,13 @@ steps:
   - name: publish
     uses: triptixx/action-docker-publish@master
     with:
-      docker_username: ${{ secrets.docker_username }}
-      docker_password: ${{ secrets.docker_password }}
-      from: alpine-dev
-      repo: ${{ secrets.docker_username }}/alpine
-      tags: ${{ matrix.alpine_tag }}
+      docker_username: docker_username
+      docker_password: docker_password
+      from: image-name-dev
+      repo: user/image-name:optional-tag
+      tags: docker_tag, over_docker_tag
+    args:
+      - '--tags'
 ```
 
 ### Available options
