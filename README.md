@@ -13,7 +13,7 @@ steps:
       docker_password: docker_password
       from: image-name-dev
       repo: user/image-name:optional-tag
-      tags: docker_tag, over_docker_tag
+      tags: docker_tag,over_docker_tag
     args:
       - '--tags'
 ```
