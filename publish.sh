@@ -3,8 +3,10 @@ set -eo pipefail
 
 source tags.sh
 
-if [ "$1" = '--tags' ]; then
-    >&2 echo -e 'Running in --tags test mode'
+# $INPUT_TEST  Running in tags test mode
+
+if [ "$INPUT_TEST" = true ]; then
+    >&2 echo -e 'Running in tags test mode'
     shift
     printf '%s\n' "$@" | parse_tags | xargs -n 1 | sort -u
     exit 0
