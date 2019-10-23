@@ -17,6 +17,8 @@ inputs:
     description: 'docker registry of your account'
   tags:
     description: 'tag TARGET_IMAGE that refers to SOURCE_IMAGE'
+  test:
+    description: 'Running in tags test mode'
 runs:
   using: 'docker'
   image: 'Dockerfile'
