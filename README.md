@@ -14,7 +14,6 @@ steps:
       from: image-name-dev
       repo: user/image-name:optional-tag
       tags: docker_tag,over_docker_tag
-    args: '--tags'
 ```
 
 ### Available options
@@ -24,3 +23,4 @@ steps:
 - `repo`               tag to this repo/repo to push to. _required_
 - `registry`           docker registry of your account. _default: `docker.io`_
 - `tags`               tag TARGET_IMAGE that refers to SOURCE_IMAGE. _default: `latest`_
+- `test`               Running in tags test mode
