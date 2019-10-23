@@ -19,7 +19,6 @@ inputs:
     description: 'tag TARGET_IMAGE that refers to SOURCE_IMAGE'
   test:
     description: 'Running in tags test mode'
-    default: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
