@@ -23,4 +23,4 @@ steps:
 - `repo`               tag to this repo/repo to push to. _required_
 - `registry`           docker registry of your account. _default: `docker.io`_
 - `tags`               tag TARGET_IMAGE that refers to SOURCE_IMAGE. _default: `latest`_
-- `test`               running in tags test mode. _optional_
+- `test_tag`               running in tags test mode. _optional_
