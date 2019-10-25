@@ -5,10 +5,9 @@ source tags.sh
 
 # $INPUT_TEST  Running in tags test mode
 
-if [ -n "$INPUT_TEST" ]; then
+if [ -n "$INPUT_TEST_TAG" ]; then
     >&2 echo -e 'Running in tags test mode'
-    shift
-    printf '%s\n' "$@" | parse_tags | xargs -n 1 | sort -u
+    printf '%s\n' "$INPUT_TEST_TAG" | parse_tags | xargs -n 1 | sort -u
     exit 0
 fi
 
