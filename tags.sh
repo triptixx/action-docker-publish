@@ -91,7 +91,6 @@ parse_tags() {
                     # usage: label <label-name> [image name=$SRC_REPO]
                     label)
                         [ $# -lt 1 ] && error "$cmd expects at least 1 argument"
-                        echo "docker inspect -f {{ index .Config.Labels $1 }} ${2:-$SRC_REPO}"
                         tags="$(docker inspect -f "{{ index .Config.Labels \"$1\" }}" "${2:-$SRC_REPO}")"
                         ;;
 
