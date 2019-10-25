@@ -3,8 +3,10 @@ set -eo pipefail
 
 source tags.sh
 
-# $INPUT_TEST_TAG  Running in tags test mode
+# If no INPUT_FROM specifed, assume INPUT_REPO instead
+export SRC_REPO="${INPUT_FROM:-${INPUT_REPO}}"
 
+# $INPUT_TEST_TAG  Running in tags test mode
 if [ -n "$INPUT_TEST_TAG" ]; then
     >&2 echo -e 'Running in tags test mode'
     printf '%s\n' "$INPUT_TEST_TAG" | parse_tags | xargs -n 1 | sort -u
@@ -32,9 +34,6 @@ fi
 if [ -z "${INPUT_REPO}" ]; then
     error "Missing 'repo' argument required for publishing"
 fi
-
-# If no INPUT_FROM specifed, assume INPUT_REPO instead
-export SRC_REPO="${INPUT_FROM:-${INPUT_REPO}}"
 
 # Log in to the specified Docker registry (or the default if not specified)
 echo -n "${PASSWORD}" | \
