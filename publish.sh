@@ -3,7 +3,7 @@ set -eo pipefail
 
 source tags.sh
 
-# $INPUT_TEST  Running in tags test mode
+# $INPUT_TEST_TAG  Running in tags test mode
 
 if [ -n "$INPUT_TEST_TAG" ]; then
     >&2 echo -e 'Running in tags test mode'
