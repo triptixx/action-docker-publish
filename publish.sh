@@ -5,6 +5,8 @@ source tags.sh
 
 # $INPUT_TEST_TAG  Running in tags test mode
 
+docker container ls -a
+
 if [ -n "$INPUT_TEST_TAG" ]; then
     >&2 echo -e 'Running in tags test mode'
     printf '%s\n' "$INPUT_TEST_TAG" | parse_tags | xargs -n 1 | sort -u
