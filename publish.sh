@@ -70,7 +70,3 @@ for tag in $TAGS; do
     docker image rm "${INPUT_REPO}:$tag" >/dev/null 2>/dev/null || true
 done
 docker image rm "${SRC_REPO}" >/dev/null 2>/dev/null || true
-
-printf '%s... ' "Updating Microbadger metadata for ${INPUT_REPO%:*}"
-WEBHOOK_URL="$(curl -sS https://api.microbadger.com/v1/images/${INPUT_REPO%:*} | jq -r .WebhookURL)" && \
-curl -sS -X POST "$WEBHOOK_URL" || true
